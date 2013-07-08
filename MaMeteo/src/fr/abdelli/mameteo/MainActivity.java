@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 
 import fr.abdelli.modele.City;
 import fr.abdelli.modele.WeatherCities;
+import fr.abdelli.ws.WSWeatherCities;
 
 public class MainActivity extends Activity implements LocationListener,OnClickListener{
 
@@ -33,16 +34,13 @@ public class MainActivity extends Activity implements LocationListener,OnClickLi
 	private String reponse;
 	
 	private EditText edit;
+	private ImageButton imgButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 	
-		//faudra trouver une autre technique pour afficher la liste des villes ici apparait au long press
-		ImageButton imgButton = (ImageButton) findViewById(R.id.imageButton1);
-		imgButton.setOnClickListener(this);
-		registerForContextMenu(imgButton);
 	}
 
 	@Override
@@ -52,11 +50,15 @@ public class MainActivity extends Activity implements LocationListener,OnClickLi
 		
 		lm = (LocationManager) this.getSystemService(LOCATION_SERVICE);
 		if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER))
-			lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0,  this);
-		lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 0,  this);
+			lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000*60*5, 0,  this);
+		lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000*60*5, 0,  this);
 		
 		findViewById(R.id.button1).setOnClickListener(this);
 		edit = (EditText) findViewById(R.id.editText1);
+		
+		imgButton = (ImageButton) findViewById(R.id.imageButton1);
+		imgButton.setOnClickListener(this);
+		registerForContextMenu(imgButton);
 	}
 
 	@Override
@@ -68,12 +70,11 @@ public class MainActivity extends Activity implements LocationListener,OnClickLi
 		accuracy = location.getAccuracy();
 
 		//Juste pour tester que ça fonctionne l'url ici sert à récupérer les villes les plus proches avec les températures en fct de la géoloc
-				new Thread(new Runnable() {
+				/*new Thread(new Runnable() {
 					
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-						Log.v("BLABLA", ""+latitude+" "+longitude);
 						String data = Outils.getJSON("http://api.openweathermap.org/data/2.1/find/city?lat="+latitude+"&lon="+longitude+"&cnt=10");
 						Gson gson = new Gson();
 						
@@ -81,7 +82,9 @@ public class MainActivity extends Activity implements LocationListener,OnClickLi
 						msg = gson.fromJson(data, WeatherCities.class);
 						
 					}
-				}).start();
+				}).start();*/
+		WSWeatherCities wsweathercities = new WSWeatherCities(this);
+		wsweathercities.execute("http://api.openweathermap.org/data/2.1/find/city?lat="+latitude+"&lon="+longitude+"&cnt=10");
 	}
 
 	@Override
@@ -145,9 +148,19 @@ public class MainActivity extends Activity implements LocationListener,OnClickLi
 			Intent i = new Intent(this, TemperatureResultatActivity.class);
 			startActivity(i);
 			break;
-
+		case R.id.imageButton1:
+			openContextMenu(v);
+			break;
 		default:
 			break;
 		}
+	}
+
+	public WeatherCities getMsg() {
+		return msg;
+	}
+
+	public void setMsg(WeatherCities msg) {
+		this.msg = msg;
 	}
 }
