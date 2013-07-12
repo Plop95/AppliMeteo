@@ -5,12 +5,198 @@
     tools:context=".TemperatureResultatActivity" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textViewTitre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="Large Text"
+        android:layout_marginTop="15dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textViewTitre"
+        android:layout_marginLeft="34dp"
+        android:layout_marginTop="40dp"
+        android:contentDescription="@string/icon_temp" />
+
+    <TextView
+        android:id="@+id/textViewMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView1"
+        android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@+id/imageView1"
+        android:textStyle="bold"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewMain"
+        android:layout_below="@+id/textViewMain"
+        android:text="@string/temperature" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_below="@+id/textView2"
+        android:text="@string/humidite" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_below="@+id/textView3"
+        android:text="@string/vent" />
+
+    <TextView
+        android:id="@+id/textViewTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/textViewHumidite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView2"
+        android:layout_marginRight="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewVent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView4"
+        android:layout_alignBottom="@+id/textView4"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:layout_below="@+id/imageView1"
+        android:layout_marginTop="43dp"
+        android:text="@string/affiche_temp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:text="@string/back"
+        android:drawableLeft="@drawable/back" />
+    
+    <TextView
+       	android:id="@+id/textViewTitreTemp"
+       	android:layout_width="fill_parent"
+       	android:layout_height="wrap_content"
+       	android:layout_below="@+id/imageView1"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="@string/title_next_temp"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+    <RelativeLayout
+        android:id="@+id/relativeLay"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textViewTitreTemp"
+        android:visibility="visible" >
+        
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:layout_alignParentRight="true"
+        		android:layout_centerVertical="true"
+        		android:layout_marginRight="22dp">
+            <ImageView
+        		android:id="@+id/ImageView2"
+        		android:layout_width="60dp"
+        		android:layout_height="60dp"
+        		android:contentDescription="@string/icon_temp" />
+    
+    		<TextView
+       	 		android:id="@+id/textViewMain2"
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:textStyle="bold"
+        		android:textAppearance="?android:attr/textAppearanceMedium"/>
+    		
+    		<TextView
+        		android:id="@+id/textViewTemperature2"
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:layout_alignParentTop="true"
+        			android:layout_centerHorizontal="true">
+            
+    		<ImageView
+        		android:id="@+id/ImageView3"
+        		android:layout_width="60dp"
+        		android:layout_height="60dp"
+        		android:contentDescription="@string/icon_temp" />
+    
+    		<TextView
+       	 		android:id="@+id/textViewMain3"
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:textStyle="bold"
+        		android:textAppearance="?android:attr/textAppearanceMedium"/>
+    		
+    		<TextView
+        		android:id="@+id/textViewTemperature3"
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:textStyle="bold"/>
+        </LinearLayout>
+        
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:layout_alignParentLeft="true"
+        		android:layout_alignParentTop="true"
+        		android:layout_marginLeft="26dp">
+            <ImageView
+        		android:id="@+id/ImageView4"
+        		android:layout_width="60dp"
+        		android:layout_height="60dp"
+        		android:contentDescription="@string/icon_temp" />
+    
+    		<TextView
+       	 		android:id="@+id/textViewMain4"
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:textStyle="bold"
+        		android:textAppearance="?android:attr/textAppearanceMedium"/>
+    		
+    		<TextView
+        		android:id="@+id/textViewTemperature4"
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:textStyle="bold"/>
+        </LinearLayout>
+        
+    </RelativeLayout>
+    
+
 
 </RelativeLayout>

@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="METEO ESGI"
+        android:text="@string/meteo_title"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     
     <LinearLayout
@@ -26,8 +26,8 @@
             android:layout_gravity="center|right"
             android:layout_weight="0.38"
             android:ems="10"
-            android:hint="Tapez la ville" />
-
+            android:imeOptions="actionDone"
+            android:hint="@string/name_ville"/>
         <ImageButton
             android:id="@+id/imageButton1"
             android:layout_width="30dp"
@@ -53,10 +53,9 @@
         android:layout_marginBottom="24dp"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
-        android:drawableLeft="@drawable/ic_launcher"
+        android:drawableLeft="@drawable/cloud"
         android:gravity="center"
-        android:text="Quel temps fait-il?" />
-
+        android:text="@string/temp_title_button" />
     <ProgressBar
         android:id="@+id/progressBar1"
         android:layout_width="wrap_content"

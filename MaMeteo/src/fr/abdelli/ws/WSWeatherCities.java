@@ -1,13 +1,19 @@
 package fr.abdelli.ws;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
 import fr.abdelli.mameteo.MainActivity;
 import fr.abdelli.mameteo.Outils;
+import fr.abdelli.mameteo.R;
+import fr.abdelli.mameteo.TemperatureResultatActivity;
 import fr.abdelli.modele.WeatherCities;
 
 public class WSWeatherCities extends AsyncTask<String, String, WeatherCities>{
@@ -23,7 +29,7 @@ public class WSWeatherCities extends AsyncTask<String, String, WeatherCities>{
 	protected void onPreExecute() {
 		// TODO Auto-generated method stub
 		dialog = new ProgressDialog(activity);
-		dialog.setTitle("Chargement des températures des villes aux alentours");
+		dialog.setTitle("Chargement...");
 		dialog.show();
 		super.onPreExecute();
 	}
@@ -35,8 +41,17 @@ public class WSWeatherCities extends AsyncTask<String, String, WeatherCities>{
 		String data = Outils.getJSON(params[0]);
 		Gson gson = new Gson();
 		//On enregistre le résultat du webservice dans la classe WeatherCities
-		WeatherCities wc = gson.fromJson(data, WeatherCities.class);
-		return wc;
+		try {
+			WeatherCities wc = gson.fromJson(data, WeatherCities.class);
+			
+			return wc;
+		} catch (Exception e) {
+			// TODO: handle exception
+			Log.v("Exception", ""+e);
+			return null;
+		}
+		
+		
 	}
 	
 	@Override
@@ -44,10 +59,35 @@ public class WSWeatherCities extends AsyncTask<String, String, WeatherCities>{
 		// TODO Auto-generated method stub
 
 		super.onPostExecute(result);
-		if(activity instanceof MainActivity){
-			((MainActivity)activity).setMsg(result);
-		}
-		
 		dialog.dismiss();
+
+		if(result!=null){
+			if(activity instanceof MainActivity){
+				((MainActivity)activity).setMsg(result);
+				((MainActivity)activity).openContextMenu(activity.findViewById(R.id.imageButton1));
+			}
+			if(activity instanceof TemperatureResultatActivity){
+				((TemperatureResultatActivity)activity).setMsg(result);
+				
+				if (((TemperatureResultatActivity)activity).isCurrentTemp()) {
+					((TemperatureResultatActivity)activity).afficheCurrentTemp();
+				}else{
+					((TemperatureResultatActivity)activity).addMoreTemp();
+				}
+			}
+		}else{
+			AlertDialog.Builder adb = new AlertDialog.Builder(activity);
+			adb.setTitle("Information");
+			adb.setMessage("Une erreur est survenue");
+			adb.setPositiveButton("OK", new OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					activity.finish();
+				}
+			});
+			adb.show();
+		}
 	}
 }

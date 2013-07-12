@@ -4,18 +4,11 @@ import java.util.ArrayList;
 
 public class WeatherCities {
 
-	private double message;
 	private String cod;
 	private String calctime;
 	private int cnt;
 	private ArrayList<City> list;
 	
-	public double getMessage() {
-		return message;
-	}
-	public void setMessage(double message) {
-		this.message = message;
-	}
 	public String getCod() {
 		return cod;
 	}
